@@ -1,4 +1,1 @@
 # UMGC
-# UMGC
-# UMGC
-# UMGC
