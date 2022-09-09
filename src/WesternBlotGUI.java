@@ -17,6 +17,11 @@ import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
 import marvin.util.MarvinPluginLoader;
 
+import marvin.gui.MarvinFilterWindow;
+import marvin.image.MarvinImageMask;
+import marvin.plugin.MarvinAbstractImagePlugin;
+import marvin.util.MarvinAttributes;
+
 public class WesternBlotGUI extends JFrame implements ActionListener
 {
     private JPanel panelBottom;
@@ -96,6 +101,7 @@ public class WesternBlotGUI extends JFrame implements ActionListener
         }
         else if(e.getSource() == buttonBrightnessContrast){
             imagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.brightnessAndContrast.jar");
+            imagePlugin.setAttribute("contrast", 50);
             imagePlugin.process(image, image);
         }
         image.update();
