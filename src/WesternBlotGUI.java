@@ -17,10 +17,15 @@ import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
 import marvin.util.MarvinPluginLoader;
 
+import marvin.gui.MarvinFilterWindow;
+import marvin.image.MarvinImageMask;
+import marvin.plugin.MarvinAbstractImagePlugin;
+import marvin.util.MarvinAttributes;
+
 public class WesternBlotGUI extends JFrame implements ActionListener
 {
     private JPanel panelBottom;
-    private JButton buttonGray, buttonEdgeDetector, buttonInvert, buttonReset;
+    private JButton buttonGray, buttonEdgeDetector, buttonInvert, buttonBrightnessContrast, buttonReset;
     private JTextField textFieldImagePath;
     private MarvinImagePanel imagePanel;
     private MarvinImage image, backupImage;
@@ -38,6 +43,7 @@ public class WesternBlotGUI extends JFrame implements ActionListener
         buttonEdgeDetector.addActionListener(this);
         buttonInvert = new JButton("Invert");
         buttonInvert.addActionListener(this);
+        buttonBrightnessContrast = new JButton("Bright/Contrast");
         buttonInvert.addActionListener(this);
         buttonReset = new JButton("Reset");
         buttonReset.addActionListener(this);
@@ -46,6 +52,7 @@ public class WesternBlotGUI extends JFrame implements ActionListener
         panelBottom.add(buttonGray);
         panelBottom.add(buttonEdgeDetector);
         panelBottom.add(buttonInvert);
+        panelBottom.add(buttonBrightnessContrast);
         panelBottom.add(buttonReset);
 
         // ImagePanel
@@ -90,6 +97,11 @@ public class WesternBlotGUI extends JFrame implements ActionListener
         }
         else if(e.getSource() == buttonInvert){
             imagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.invert.jar");
+            imagePlugin.process(image, image);
+        }
+        else if(e.getSource() == buttonBrightnessContrast){
+            imagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.brightnessAndContrast.jar");
+            imagePlugin.setAttribute("contrast", 50);
             imagePlugin.process(image, image);
         }
         image.update();
